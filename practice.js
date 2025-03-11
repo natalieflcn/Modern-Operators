@@ -235,3 +235,68 @@ function printBookAuthorsCount(title, ...authors) {
   console.log(`The book "${title}" has ${authors.length} authors.`);
 }
 printBookAuthorsCount('Algorithms', 'Robert Sedgewick', 'Kevin Wayne');
+
+// SHORT CIRCUITING -- && AND ||
+
+// Some of the book objects have the programmingLanguage property, which specifies what programming language is used in the book, for example
+
+// Write a function called hasExamplesInJava that takes a book object from the books array as an argument. This function should return true if the book uses Java, or a string 'no data available' if it uses other language or no programming language at all.
+
+// Use short-circuiting.
+
+function hasExamplesInJava(book) {
+  return book.programmingLanguage === 'Java' || 'no data available';
+}
+
+console.log(hasExamplesInJava(books[0]));
+
+// Some of the book objects have the onlineContent property, which is either true or false. Loop over the books array, and for the books that provide online content, log to the console a string in this format: "${title}" provides online content. Use short-circuiting.
+
+for (const book of books) {
+  book.onlineContent && console.log(`${book.title} provdies online content.`);
+}
+
+// THE NULLISH COALESCING OPERATOR
+// There are objects in the books array that don't have the onlineContent property at all. Loop over the books array, and log a string to the console in this format: "${title}" provides no data about its online content.
+
+for (const book of books) {
+  book.onlineContent ??
+    console.log(`"${book.title}" provides no data about its online content.`);
+}
+
+// LOGICAL ASSIGNMENTS OPERATORS
+// Some of the book objects from the books array are missing the edition property. Loop over the books array, and assign this property with a number 1 (if it doesn't already exist). Use logical assignment operators.
+for (const book of books) {
+  book.edition ||= 1;
+}
+// Some of the book objects from the books array have the highlighted property, which by default is set to true. Iterate over the books array, and if the thirdParty.goodreads.rating property is less than 4.2, reassign it with false.
+
+// Use the &&= operator (tip: you may also need the ! operator)
+for (const book of books) {
+  book.highlighted &&= !(book.thirdParty.goodreads.rating < 4.2);
+}
+
+// FOR OF LOOP
+// Use the for-of loop to loop over the books array and sum the pages of all books. Use the pageSum variable below, and the pages property of the book objects.
+let pageSum = 0;
+for (const book of books) {
+  pageSum += book.pages;
+}
+
+// Below is the allAuthors variable which stores an empty array. Use the for-of loop to fill allAuthors with the authors of each book from the books array.
+const allAuthors = [];
+
+// Remember that each book object has the author property, which can be a string (if there is only a single author) or an array (if there are multiple authors). You may need to use the typeof operator. You can also use multiple loops if needed. The allAuthors array should have just one level (no nested arrays).
+
+for (const book of books) {
+  if (typeof book.author === 'string') {
+    allAuthors.push(book.author);
+  } else {
+    allAuthors.push(...book.author);
+  }
+}
+console.log(allAuthors);
+// Use the for-of loop together with Array's entries() method to log each author from allAuthors to the console together with its index. Make the index start from 1, instead of 0.
+for (const [i, author] of allAuthors.entries()) {
+  console.log(`${i + 1}: ${author}`);
+}
