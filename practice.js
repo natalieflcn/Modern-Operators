@@ -300,3 +300,125 @@ console.log(allAuthors);
 for (const [i, author] of allAuthors.entries()) {
   console.log(`${i + 1}: ${author}`);
 }
+
+// ENHANCED OBJECT LITERALS
+// Below is the bookData array that contains other arrays. Each inner array consists of the property name (first element), and the value (second element). For example, in ['title', 'Computer Networking: A Top-Down Approach'], 'title' is the property name, and 'Computer Networking: A Top-Down Approach' is meant to be the value assigned to that property name.
+
+// Using computed properties, fill the newBook object with the properties and values from the bookData array. The first one is done already.
+
+const bookData = [
+  ['title', 'Computer Networking: A Top-Down Approach'],
+  ['author', ['James F. Kurose', 'Keith W. Ross']],
+  ['publisher', 'Addison Wesley'],
+];
+
+// Do the rest
+const newBook = {
+  [bookData[0][0]]: bookData[0][1],
+  [bookData[1][0]]: bookData[1][1],
+  [bookData[2][0]]: bookData[2][1],
+};
+
+// Below is the pages variable. Add it as a property of the newBook2 object. Use the shorter way.
+
+const pages = 880;
+
+const newBook2 = {
+  title: 'The C Programming Language',
+  author: ['Brian W. Kernighan', 'Dennis M. Ritchie'],
+  pages,
+};
+
+// OPTIONAL CHAINING
+// Write a function called getFirstKeyword that takes the book object as an argument. This function should return the first keyword from the book's keywords property (array) or undefined (if the keywords property doesn't exist). It shouldn't throw an error. Use optional chaining for that.
+
+function getFirstKeyword(book) {
+  return book.keywords?.[0];
+}
+
+console.log(getFirstKeyword(books[0]));
+
+// LOOPING OBJECTS
+// Below is the entries variable that stores an empty array. Use the for-of loop together with the Object.keys() method to loop over the thirdParty.goodreads property (array) of the first book object from the books array. For each key, push a new array that contains that key to the entries array.
+let entries = [];
+// In the end, the entries array should be filled with arrays containing keys:
+
+for (const key of Object.keys(books[0].thirdParty.goodreads)) {
+  entries.push(key);
+}
+
+console.log(entries);
+
+// Use the for-of loop together with the Object.values() method and Array's entries() method to loop over thirdParty.goodreads property of the first book from the books array.
+
+// Push each value to the appropriate inner array in the entries array (use index from entries()).
+// for (const [index, value] of Object.values(
+//   books[0].thirdParty.goodreads
+// ).entries()) {
+//   entries[index].push(value);
+// }
+
+// Use the Object.entries() method on the thirdParty.goodreads property of the first book from the books array. Assign the returned value to the variable called entries2.
+const entries2 = Object.entries(books[0].thirdParty.goodreads);
+
+// SETS
+// Below is the allKeywords variable, which stores an empty array. Loop over the books array, and fill the allKeywords array with the keywords coming from the keywords property of each book object. The allKeywords array should have just one level (no nested arrays).
+
+// Use whatever loop and methods you want. You can also use the spread syntax. In the end, the allKeywords array should look more or less like this: ['computer science', 'programming', 'algorithms', 'data structures', ...].
+const allKeywords = [];
+for (const book of books) {
+  allKeywords.push(...book.keywords);
+}
+console.log(allKeywords);
+
+// The allKeyword array contains duplicates. Remove them by creating a Set out of that array. Assign the newly created set to the uniqueKeywords variable.
+
+const uniqueKeywords = new Set(allKeywords);
+console.log(uniqueKeywords);
+
+// Add two more keywords to the uniqueKeywords set, for example, 'coding' and 'science'.
+uniqueKeywords.add('coding');
+uniqueKeywords.add('science');
+
+// Delete 'business' from the uniqueKeywords set.
+uniqueKeywords.delete('business');
+
+// Create an array out of the uniqueKeywords set, and assign it to the uniqueKeywordsArr variable.
+
+const uniqueKeywordsArr = [...uniqueKeywords];
+console.log(uniqueKeywordsArr);
+
+// Delete all items from the uniqueKeywords set.
+uniqueKeywords.clear();
+
+// Maps Fundamentals
+// Create a new book, but this time, as a Map. Assign it to the bookMap variable. Use this array as initial data:
+const bookMap = new Map([
+  ['title', 'Clean Code'],
+  ['author', 'Robert C. Martin'],
+]);
+
+// Set a new key in bookMap called pages, and assign it with a number 464.
+bookMap.set('pages', 464);
+
+// Get the title and author values from bookMap, and log to the console a string formatted like that: "${title} by ${author}".
+console.log(`${bookMap.get('title')} by ${bookMap.get('author')}.`);
+
+// Get the size of bookMap, and log it to the console.
+console.log(bookMap.size);
+
+// Check if bookMap has the author key. and if so, log "The author of the book is known" to the console.
+console.log(bookMap.has('author') && 'The author of the book is known');
+
+// Maps -- Iteration
+// Convert the first book object from the books array into a Map, and assign it to a firstBookMap variable.
+const firstBookMap = new Map(bookMap.entries());
+
+// Use the for-of loop to iterate over firstBookMap, and log to the console keys that have numbers as values.
+for (const [key, value] of firstBookMap) {
+  if (typeof value === 'number') {
+    console.log(key);
+  }
+}
+
+// WORKING WITH STRINGS
